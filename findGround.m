@@ -15,11 +15,11 @@ function groundPoints = findGround(P, CP)
     dsum2 = sqrt( (x2 - real(CP(1)))^2 + (y2 - imag(CP(1)))^2 );
 
     % Distances to CP(2)
-    ddiff1 = sqrt( (x1 - real(CP(2)))^2 + (y1 - imag(CP(2)))^2 );
+    ddiff1 = sqrt( (x1 - real(CP(3)))^2 + (y1 - imag(CP(3)))^2 );
     ddiff2 = sqrt( (x2 - real(CP(2)))^2 + (y2 - imag(CP(2)))^2 );
 
     % Choose solution
-    if ddiff1 > dsum1
+    if dsum2 > dsum1
         groundPoints = [x1, y1];
     else
         groundPoints = [x2, y2];
