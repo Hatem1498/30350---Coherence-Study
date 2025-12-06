@@ -8,33 +8,33 @@ multir=20;
 multiaz=40;
 T11m=zeros(3,3,multir,multiaz);
 T22m=zeros(3,3,multir,multiaz);
-O12m=zeros(3,3,multir,multiaz);
+O12m=zeros(3,3,multir,multi);
 T11=zeros(3,3);
 T22=zeros(3,3);
 O12=zeros(3,3);
-k1=zeros(3,multir,multiaz);
-k2=zeros(3,multir,multiaz);
-S=zeros(multir, multiaz,3,2);
+k1=zeros(3,multi,multi);
+k2=zeros(3,multi,multi);
+S=zeros(multi, multi,3,2);
 
 y = 200;
 x = 7350;
 for i=1:2
     for j=1:3
            data=read_emisar_data(fileName1(i,j), nra, az_start, az_num);
-           S(:,:,j,i)=data(y:1:y+multir-1,x:1:x+multiaz-1);
+           S(:,:,j,i)=data(y:1:y+multi-1,x:1:x+multi-1);
     end
     
 end
 imagesc(abs(data),[0 0.5])
-k1(1,:,:)=(1/sqrt(2))*S(1:multir,1:multiaz,1,1)+S(1:multir,1:multiaz,3,1);
-k1(2,:,:)=(1/sqrt(2))*S(1:multir,1:multiaz,1,1)-S(1:multir,1:multiaz,3,1);
-k1(3,:,:)=(1/sqrt(2))*2*S(1:multir,1:multiaz,2,1);
-k2(1,:,:)=(1/sqrt(2))*S(1:multir,1:multiaz,1,2)+S(1:multir,1:multiaz,3,2);
-k2(2,:,:)=(1/sqrt(2))*S(1:multir,1:multiaz,1,2)-S(1:multir,1:multiaz,3,2);
-k2(3,:,:)=(1/sqrt(2))*2*S(1:multir,1:multiaz,2,2);
+k1(1,:,:)=S(1:multi,1:multi,1,1)+S(1:multi,1:multi,3,1);
+k1(2,:,:)=S(1:multi,1:multi,1,1)-S(1:multi,1:multi,3,1);
+k1(3,:,:)=S(1:multi,1:multi,2,1);
+k2(1,:,:)=S(1:multi,1:multi,1,2)+S(1:multi,1:multi,3,2);
+k2(2,:,:)=S(1:multi,1:multi,1,2)-S(1:multi,1:multi,3,2);
+k2(3,:,:)=S(1:multi,1:multi,2,2);
 
-for j=1:multiaz
-    for i=1:multir
+for j=1:multi
+    for i=1:multi
         T11m(:,:,i,j)=k1(:,i,j)*k1(:,i,j)';
         T22m(:,:,i,j)=k2(:,i,j)*k2(:,i,j)';
         O12m(:,:,i,j)=k1(:,i,j)*k2(:,i,j)';
@@ -43,6 +43,6 @@ for j=1:multiaz
         O12=O12+O12m(:,:,i,j);
     end
 end
-T11=T11./(multir*multiaz);
-T22=T22./(multir*multiaz);
-O12=O12./(multir*multiaz);
+T11=T11./(multi*multi);
+T22=T22./(multi*multi);
+O12=O12./(multi*multi);
